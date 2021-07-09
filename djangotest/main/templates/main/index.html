@@ -1,0 +1,9 @@
+{% extends 'main/base.html' %} {% block title %} Главная страница {% endblock %}
+{% block content %} {% if user.is_authenticated %}
+<h3>Username: {{ user.get_username }}</h3>
+<h3>Данные из бд, для примера таблица Lists</h3>
+{{lists}}
+<button class="btn">Отправить данные на сервер</button>
+{% else %}
+<li><a href="{% url 'login'%}?next={{request.path}}"> Please login</a></li>
+{% endif %} {% endblock %}

@@ -8,6 +8,9 @@ class List(models.Model):
     id_user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField("name", max_length=50)
 
+    def __str__(self):
+        return self.name
+
 
 class Session(models.Model):
     id_user = models.ForeignKey(User, on_delete=models.CASCADE)

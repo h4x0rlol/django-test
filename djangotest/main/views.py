@@ -1,3 +1,7 @@
 from django.shortcuts import render
+from .models import List
 
-# Create your views here.
+
+def index(request):
+    lists = List.objects.all()
+    return render(request, 'main/index.html', {"lists": lists})
