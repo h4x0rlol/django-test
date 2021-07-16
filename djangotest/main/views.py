@@ -1,9 +1,6 @@
-import os
-from main.tcp_handler import tcp_connect
+from main.utils.TCPHandler import TCPHandler
 from django.shortcuts import render
 from .models import List
-from django.core import serializers
-
 
 TCP_IP = '127.0.0.1'
 TCP_PORT = 5005
@@ -18,9 +15,10 @@ def index(request):
 def send_data(request):
     if request.method == "GET":
         MESSAGE = "keklol".encode()
-        con = tcp_connect(TCP_IP, TCP_PORT)
-        con.send(MESSAGE)
-        data = con.recv(BUFFER_SIZE)
+        connection = TCPHandler(TCP_IP, TCP_PORT, BUFFER_SIZE)
+        connection.connect()
+        connection.send(MESSAGE)
+        data = connection.receive()
         print("received data:", data)
 
     return render(request, 'main/index.html', {"lists": lists})
