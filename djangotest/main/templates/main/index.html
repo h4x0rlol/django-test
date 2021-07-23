@@ -1,8 +1,15 @@
 {% extends 'main/base.html' %} {% block title %} Главная страница {% endblock %}
 {% block content %} {% if user.is_authenticated %}
 <h3>Username: {{ user.get_username }}</h3>
-<h3>Данные из бд, для примера таблица Lists</h3>
-{{lists}}
+<h3>Полученный от сервера XML</h3>
+{{test_data}}
+
+<!-- <h3>Объект преобразованный в XML</h3>
+{{test_data_builded}} -->
+
+<h3>XML преобразованный в объект</h3>
+{{parsed_data}}
+
 <form action="send_data" method="GET">
   <button class="btn">Отправить данные на сервер</button>
 </form>

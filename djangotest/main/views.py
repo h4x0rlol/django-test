@@ -32,11 +32,11 @@ test_data3 = {
     'stage': 1
 }
 
-server_response = XMLHandler().build(test_data3)
+server_response = XMLHandler().build(test_data3).decode(encoding="utf-8")
 
 
 def index(request):
-    return render(request, 'main/index.html', {"lists": lists})
+    return render(request, 'main/index.html', {"test_data": server_response})
 
 
 def send_data(request):
@@ -44,8 +44,10 @@ def send_data(request):
         xml = XMLHandler()
         message = xml.build(test_data1)
 
+        builded = message.decode(encoding="utf-8")
+
         print('Builded message\n\n')
-        print(message.decode(encoding="utf-8"))
+        print(builded)
         print('\n\n')
 
         parsed_message = xml.parse(server_response)
@@ -56,8 +58,8 @@ def send_data(request):
 
         # connection = TCPHandler(TCP_IP, TCP_PORT, BUFFER_SIZE)
         # connection.connect()
-        # connection.send(MESSAGE)
+        # connection.send(builded.encode())
         # data = connection.receive()
         # print("received data:", data)
 
-    return render(request, 'main/index.html', {"lists": lists})
+    return render(request, 'main/index.html', {"test_data_builded": builded, "parsed_data": parsed_message})
